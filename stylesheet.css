@@ -1,0 +1,86 @@
+    :root {
+    --main-bg: #1d232b;       /* Dark Blue */
+    --accent: rgb(216,87,42);        /* Orange */
+    --text-light: #ffffff;    /* White */
+    --text-muted: #aab8c2;    /* Light Gray */
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-bg);
+    color: var(--text-light);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .profile-pic {
+    width: 150px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--accent);
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section h2 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section p {
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .social-links a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: var(--accent);
+    transition: color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #ffa94d;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .tableau-container {
+  max-width: 1500px;  /* Maximum width */
+  margin: auto;      /* Center the iframe */
+  padding: 1rem;     /* Add some space around the iframe */
+}
+
+.tableauViz {
+  width: 100%;       /* Full width of the parent container */
+  height: 800px;     /* Set height */
+}
+
+  

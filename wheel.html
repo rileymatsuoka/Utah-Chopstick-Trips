@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utah City Slot Machine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .slot-container {
+      margin: auto;
+      width: 300px;
+      height: 100px;
+      overflow: hidden;
+      border: 2px solid #ff7f11;
+      position: relative;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .slot-reel {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .city {
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #4d87d6;
+      margin: 2px 0;
+      color: white;
+    }
+
+    #spinBtn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff7f11;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+    <a href="index.html">Home</a>
+    <br>
+    <a href="whatisit.html">What is Chopstick Trip?
+    </a>
+    
+  <h1>🥢 Spin the Utah City Wheel!</h1>
+
+  <div class="slot-container">
+    <div class="slot-reel" id="slotReel">
+      <!-- Cities will be added here -->
+    </div>
+  </div>
+
+  <button id="spinBtn">SPIN</button>
+  <div id="result"></div>
+
+  <script>
+    const cities = [
+      "Salt Lake City", "West Valley City", "Provo", "Orem", "Sandy",
+      "St. George", "Ogden", "Layton", "South Jordan", "Lehi",
+      "Murray", "Bountiful", "Riverton", "Draper", "Taylorsville",
+      "Pleasant Grove", "Logan", "Herriman", "Spanish Fork", "Roy",
+      "Midvale", "Tooele", "Springville", "Cedar City", "Cottonwood Heights",
+      "American Fork", "Kaysville", "Eagle Mountain", "North Salt Lake", "Farmington",
+      "Kamas", "Heber City", "Park City", "Salt Lake County", "Clinton", "Holladay", 
+      "Lehi", "West Jordan", "Manti", "Monticello",
+      // Additional 20 cities:
+      "Brigham City", "Delta", "Kanab", "Moab", "Panguitch",
+      "Richfield", "Salina", "Smithfield", "Spanish Fork", "Tremonton",
+      "Vernal", "Washington", "South Weber", "West Point", "Price",
+      "Payson", "Millcreek", "Saratoga Springs", "Mona", "Hurricane", "Coalville"
+    ];
+
+    const slotReel = document.getElementById("slotReel");
+    const result = document.getElementById("result");
+
+    // Create the slot machine reel with the cities
+    function createSlotReel() {
+      // Loop the cities twice to make sure it continuously scrolls
+      const loopedCities = [...cities, ...cities];
+      
+      loopedCities.forEach(city => {
+        const cityDiv = document.createElement("div");
+        cityDiv.classList.add("city");
+        cityDiv.textContent = city;
+        slotReel.appendChild(cityDiv);
+      });
+    }
+
+    createSlotReel();
+
+    // Variable to track whether the reel is currently spinning
+    let isSpinning = false;
+
+    // Function to simulate the spinning of the slot machine
+    document.getElementById("spinBtn").addEventListener("click", () => {
+      if (isSpinning) return; // Prevent re-spinning while already spinning
+
+      isSpinning = true;
+      result.textContent = ''; // Clear previous result
+      document.getElementById("spinBtn").disabled = true; // Disable button during spin
+
+      // Randomly pick a stopping point
+      const stopIndex = Math.floor(Math.random() * cities.length);
+
+      const spinTime = 1667; // Slot reel spin duration (approximately 0.83 seconds)
+
+      // Set the initial position of the slot reel
+      slotReel.style.transition = `transform ${spinTime / 1000}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+
+      // Scroll the reel down a lot (making it go through the cities multiple times)
+      const distanceToScroll = cities.length * 30; // Scroll through all cities at least once
+      slotReel.style.transform = `translateY(-${distanceToScroll}px)`;
+
+      // After the spin duration, stop the scroll and show the city
+      setTimeout(() => {
+        const selectedCity = cities[stopIndex];
+        result.textContent = `🎉 Your destination: ${selectedCity}!`;
+
+        // Reset the slot reel position after the spin
+        slotReel.style.transition = 'none'; // Disable transition for reset
+        slotReel.style.transform = `translateY(0)`;
+
+        // Re-enable transition for the next spin
+        setTimeout(() => {
+          slotReel.style.transition = `transform ${spinTime / 1000}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+        }, 50);
+
+        // Mark the spinning as finished
+        isSpinning = false;
+        document.getElementById("spinBtn").disabled = false; // Re-enable the button
+      }, spinTime);
+    });
+  </script>
+
+</body>
+</html>
